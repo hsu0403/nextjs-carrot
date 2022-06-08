@@ -118,11 +118,11 @@ const ChatDetail: NextPage = () => {
         {data?.exsistChatRoom?.createdById === user?.id &&
           (data?.product?.purchaseCheck ? (
             data.product?.saleCheck ? (
-              <span className="text-white text-center top-12 max-w-lg w-full fixed bg-orange-500 rounded-md p-1">
+              <span className="text-white text-center top-12 max-w-xl w-full fixed bg-orange-500 rounded-md p-1">
                 구매 완료
               </span>
             ) : (
-              <span className="text-white text-center top-12 max-w-lg w-full fixed bg-orange-500 rounded-md p-1">
+              <span className="text-white text-center top-12 max-w-xl w-full fixed bg-orange-500 rounded-md p-1">
                 구매중...ㄱㄷㄱㄷ
               </span>
             )
@@ -130,7 +130,7 @@ const ChatDetail: NextPage = () => {
             <button
               name={data?.exsistChatRoom.productId + ""}
               onClick={onConfirmPurchase}
-              className="top-12 max-w-lg w-full fixed bg-orange-500 hover:bg-orange-600 rounded-md text-white p-1"
+              className="top-12 max-w-xl w-full fixed bg-orange-500 hover:bg-orange-600 rounded-md text-white p-1"
             >
               구매 확정
             </button>
@@ -138,14 +138,14 @@ const ChatDetail: NextPage = () => {
         {data?.exsistChatRoom?.createdForId === user?.id &&
           (data?.product?.purchaseCheck ? (
             data?.product?.saleCheck ? (
-              <span className="text-white text-center top-12 max-w-lg w-full fixed bg-orange-500 rounded-md p-1">
+              <span className="text-white text-center top-12 max-w-xl w-full fixed bg-orange-500 rounded-md p-1">
                 판매 완료
               </span>
             ) : (
               <button
                 name={data?.exsistChatRoom.productId + ""}
                 onClick={onConfirmSale}
-                className="top-12 max-w-lg w-full fixed bg-orange-500 hover:bg-orange-600 rounded-md text-white p-1"
+                className="top-12 max-w-xl w-full fixed bg-orange-500 hover:bg-orange-600 rounded-md text-white p-1"
               >
                 판매 확정
               </button>

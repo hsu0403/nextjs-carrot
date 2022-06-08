@@ -36,7 +36,7 @@ export default function Layout({
       <Head>
         <title>{seoTitle} | Carrot Market</title>
       </Head>
-      <div className="z-10 bg-white w-full h-12 max-w-lg justify-center text-lg px-10 font-medium  fixed text-gray-800 border-b top-0 flex items-center">
+      <div className="z-10 bg-white w-full h-12 max-w-xl justify-center text-lg px-10 font-medium  fixed text-gray-800 border-b top-0 flex items-center">
         {canGoBack ? (
           <button
             onClick={onClick}
@@ -62,7 +62,7 @@ export default function Layout({
       </div>
       <div className={cls("pt-16", hasTabBar ? "pb-24" : "")}>{children}</div>
       {hasTabBar ? (
-        <nav className="bg-white max-w-lg text-gray-700 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
+        <nav className="bg-white max-w-xl text-gray-700 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
           <Link href="/">
             <a
               className={cls(
