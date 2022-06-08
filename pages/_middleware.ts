@@ -11,12 +11,13 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
       // const url = req.nextUrl.clone();
       // url.pathname = "/enter";
       // return NextResponse.redirect(url);
-      return NextResponse.redirect(
-        new URL(`${req.nextUrl.origin}/enter`, req.url)
-      );
+      // return NextResponse.redirect(
+      //   new URL(`${req.nextUrl.origin}/enter`, req.url)
+      // );
+      return NextResponse.redirect(new URL("/enter", req.url));
     }
     if (req.cookies.carrotsession && req.url.includes("/enter")) {
-      return NextResponse.redirect(new URL(`${req.nextUrl.origin}`, req.url));
+      return NextResponse.redirect(new URL("/", req.url));
     }
   }
 }
