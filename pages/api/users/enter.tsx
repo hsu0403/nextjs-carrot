@@ -17,10 +17,9 @@ async function handler(
   if (!user) return res.status(400).json({ ok: false });
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    host: "smtp.gamil.com",
+    service: "naver",
+    host: "smtp.naver.com",
     port: 587,
-    secure: false,
     auth: {
       user: process.env.MY_EMAIL,
       pass: process.env.MY_PASS,
@@ -52,7 +51,7 @@ async function handler(
     });
   } else if (email) {
     await transporter.sendMail({
-      from: "nextjs-carrot",
+      from: process.env.MY_EMAIL,
       to: email,
       subject: "Typing on your screen!",
       html: `

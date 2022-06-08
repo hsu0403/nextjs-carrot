@@ -8,6 +8,9 @@ import { cls } from "@libs/client/utils";
 import { withSsrSession } from "@libs/server/withSession";
 import client from "@libs/server/client";
 import Image from "next/image";
+import useMutation from "@libs/client/useMutation";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface ReviewWithUser extends Review {
   createBy: User;
@@ -18,32 +21,60 @@ interface ReviewsResponse {
   reviews: ReviewWithUser[];
 }
 
+interface LogOutResponse {
+  ok: boolean;
+}
+
 const Profile: NextPage = () => {
+  const router = useRouter();
   const { user } = useUser();
   const { data } = useSWR<ReviewsResponse>("/api/reviews");
-  console.log(data);
+  const [logOut, { data: logOutData, loading }] =
+    useMutation<LogOutResponse>("/api/users/logout");
+
+  const onValid = () => {
+    if (window.confirm("Are you sure you want to log out??")) {
+      logOut({});
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (logOutData && logOutData.ok) {
+      router.replace("/enter");
+    }
+  }, [router, loading, logOutData]);
+
   return (
     <Layout seoTitle={`${user?.name}'s Profile`} title="프로필" hasTabBar>
       <div className="px-6">
-        <div className="flex items-center space-x-3">
-          {user?.avatar ? (
-            <Image
-              width={64}
-              height={64}
-              src={`https://imagedelivery.net/JCL3J8XgW7eVfzwyrjWhSQ/${user.avatar}/avatar`}
-              className="w-12 h-12 rounded-full bg-slate-300"
-            />
-          ) : (
-            <div className="w-16 h-16 rounded-full bg-slate-300" />
-          )}
-          <div className="flex flex-col">
-            <span className="font-medium text-gray-900">
-              {user ? user.name : "Loading..."}
-            </span>
-            <Link href="/profile/edit">
-              <a className="text-sm text-gray-700">Edit profile &rarr;</a>
-            </Link>
+        <div className="flex items-center space-x-44">
+          <div className="flex items-center space-x-3">
+            {user?.avatar ? (
+              <Image
+                width={64}
+                height={64}
+                src={`https://imagedelivery.net/JCL3J8XgW7eVfzwyrjWhSQ/${user.avatar}/avatar`}
+                className="w-12 h-12 rounded-full bg-slate-300"
+              />
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-slate-300" />
+            )}
+            <div className="flex flex-col">
+              <span className="font-medium text-gray-900">
+                {user ? user.name : "Loading..."}
+              </span>
+              <Link href="/profile/edit">
+                <a className="text-sm text-gray-700">Edit profile &rarr;</a>
+              </Link>
+            </div>
           </div>
+          <button
+            onClick={onValid}
+            className="bg-orange-500 text-white p-1.5 rounded-md"
+          >
+            LogOut
+          </button>
         </div>
         <div className="mt-10 mb-12 flex justify-around">
           <Link href="/profile/sold">
