@@ -199,7 +199,7 @@ export async function getStaticProps() {
     props: {
       posts: JSON.parse(JSON.stringify(posts)),
     },
-    revalidate: 10,
+    revalidate: 100,
   };
 }
 
